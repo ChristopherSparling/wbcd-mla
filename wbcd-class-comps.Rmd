@@ -1,0 +1,43 @@
+---
+title: "Classification Comparisons"
+output: html_notebook
+---
+
+
+```{r}
+library(caret)
+library(tidyverse)
+library(corrplot)
+
+# Read in data
+data <- read.csv("data.csv")
+
+# Remove "X" column
+data <- data %>% select(-c(X,id))
+
+# Observe data
+str(data)
+summary(data)
+glimpse(data)
+#View(bcds)
+```
+
+Lets quickly check the correlations between diagnosis and our other variables
+```{r}
+# Convert two-level factor to numeric
+data$diagnosis <- ifelse(data$diagnosis == "M", 1, 0)
+str(data$diagnosis)
+
+# Create correlation matrix and plot
+corr_M <- cor(data)
+corrplot(corr_M, type = "upper")
+
+```
+
+
+
+
+
+
+
+
